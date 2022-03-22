@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// Keep all colors here to make a central point of control
+class _Colors {
+  static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
+  static const lightGray = Color(0xFFE5E5E5);
+  static const darkGray = Color(0xFFC4C4C4);
+  static const lightPurple = Color(0xFF9F76B4);
+  static const darkPurple = Color(0xFF542d69);
+  static const lightGreen = Color(0xFF61C791);
+  static const darkGreen = Color(0xFF19AE60);
+}
+
+final appTheme = ThemeData(
+  brightness: Brightness.light,
+
+  // Color data
+  primaryColor: _Colors.darkPurple,
+
+  // Bottom navigation bar data
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: _Colors.white,
+    selectedItemColor: _Colors.darkGreen,
+    selectedLabelStyle: GoogleFonts.lexend(
+      textStyle: const TextStyle(color: _Colors.darkGreen),
+    ),
+    unselectedItemColor: _Colors.lightGreen,
+    unselectedLabelStyle: GoogleFonts.lexend(
+      textStyle: const TextStyle(color: _Colors.lightGreen),
+    ),
+    showUnselectedLabels: false, // Toggle this to show/hide the labels
+  ),
+
+  // Text data
+  fontFamily: 'Lexend',
+  textTheme: TextTheme(
+    headline1: GoogleFonts.lexend(
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 36,
+      ),
+    ),
+  ),
+);
