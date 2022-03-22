@@ -32,13 +32,12 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  final _widgetOptions = ['Quickchat', 'Modules', 'Profile', 'Settings'];
-  final _widgetIcons = [
-    Icons.chat_bubble,
-    Icons.library_books,
-    Icons.portrait,
-    Icons.settings
-  ];
+  final _navOptions = {
+    'QuickChat': Icons.chat_bubble,
+    'Modules': Icons.library_books,
+    'Profile': Icons.portrait,
+    'Settings': Icons.settings
+  };
 
   void _onItemTapped(int index) {
     setState(() {
@@ -50,28 +49,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     // again, basically all the interactive parts of the widget; in this case, the menu bar
 
-    if (_widgetIcons.length != _widgetOptions.length) {
-      throw Exception(
-          'The number of widget options and icons must be the same');
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Senior Project App'),
       ),
       body: Center(
-        child: Text(_widgetOptions.elementAt(_selectedIndex),
+        child: Text(_navOptions.entries.elementAt(_selectedIndex).key,
             style: Theme.of(context).textTheme.headline1),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: _widgetOptions
-            .asMap()
-            .entries
-            .map((entry) => BottomNavigationBarItem(
-                  icon: Icon(_widgetIcons.elementAt(entry.key)),
-                  label: entry.value,
-                ))
-            .toList(),
+        items: _navOptions.entries.map((e) {
+          return BottomNavigationBarItem(
+            icon: Icon(e.value),
+            label: e.key,
+          );
+        }).toList(),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
