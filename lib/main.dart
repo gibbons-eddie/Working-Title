@@ -54,8 +54,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         title: const Text('Senior Project App'),
       ),
       body: Center(
-        child: Text(_navOptions.entries.elementAt(_selectedIndex).key,
-            style: Theme.of(context).textTheme.headline1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(_navOptions.entries.elementAt(_selectedIndex).key,
+                style: Theme.of(context).textTheme.displaySmall),
+            const TextButton(onPressed: null, child: Text('Hello World'))
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: _navOptions.entries.map((e) {

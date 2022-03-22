@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Keep all colors here to make a central point of control
-class _Colors {
+// Keep all common colors here to make a central point of control
+class CustomColors {
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
   static const lightGray = Color(0xFFE5E5E5);
@@ -17,30 +18,31 @@ final appTheme = ThemeData(
   brightness: Brightness.light,
 
   // Color data
-  primaryColor: _Colors.darkPurple,
+  primaryColor: CustomColors.darkPurple,
 
   // Bottom navigation bar data
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: _Colors.white,
-    selectedItemColor: _Colors.darkGreen,
+    backgroundColor: CustomColors.white,
+    selectedItemColor: CustomColors.darkGreen,
     selectedLabelStyle: GoogleFonts.lexend(
-      textStyle: const TextStyle(color: _Colors.darkGreen),
+      textStyle: const TextStyle(color: CustomColors.darkGreen),
     ),
-    unselectedItemColor: _Colors.lightGreen,
+    unselectedItemColor: CustomColors.lightGreen,
     unselectedLabelStyle: GoogleFonts.lexend(
-      textStyle: const TextStyle(color: _Colors.lightGreen),
+      textStyle: const TextStyle(color: CustomColors.lightGreen),
     ),
     showUnselectedLabels: false, // Toggle this to show/hide the labels
   ),
 
+  // Buttom data
+  textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(CustomColors.lightGreen),
+    foregroundColor: MaterialStateProperty.all(CustomColors.white),
+    textStyle: MaterialStateProperty.all(GoogleFonts.lexend()),
+  )),
+
   // Text data
-  fontFamily: 'Lexend',
-  textTheme: TextTheme(
-    headline1: GoogleFonts.lexend(
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 36,
-      ),
-    ),
-  ),
+  typography: Typography.material2018(platform: defaultTargetPlatform),
+  textTheme: GoogleFonts.lexendTextTheme(),
 );
