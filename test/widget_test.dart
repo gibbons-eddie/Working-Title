@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_demo/main.dart';
+import 'package:senior_project/main.dart'; // root dir name is 'senior_project'
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
