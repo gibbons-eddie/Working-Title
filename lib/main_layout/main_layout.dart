@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/main_layout/nav_bar.dart';
 import 'package:senior_project/theme.dart';
+import 'package:senior_project/main_layout/custom_page.dart';
+import 'package:senior_project/main_layout/nav_bar.dart';
 import 'package:senior_project/main_layout/title_bar.dart';
-import 'package:senior_project/pages.dart';
+import 'package:senior_project/main_layout/pages.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0; // keep track of which page we're on
-  final _pages = pages; // get pages data
+  final List<CustomPage> _pages = [quickchat, modules, profile, settings];
 
   void setCurrentIndex(int _newIndex) {
     setState(() {
@@ -28,8 +29,11 @@ class _MainLayoutState extends State<MainLayout> {
       backgroundColor: CustomColors.darkPurple,
 
       // custom navigation bar widget
-      bottomNavigationBar:
-          NavBar(currentIndex: _currentIndex, setCurrentIndex: setCurrentIndex),
+      bottomNavigationBar: NavBar(
+        currentIndex: _currentIndex,
+        setCurrentIndex: setCurrentIndex,
+        pages: _pages,
+      ),
 
       // body will contain our custom title bar and the current page
       body: SafeArea(
