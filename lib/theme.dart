@@ -7,7 +7,7 @@ class CustomColors {
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
   static const lightGray = Color(0xFFE5E5E5);
-  static const darkGray = Color(0xFFC4C4C4);
+  static const darkGray = Color(0xFF868686);
   static const lightPurple = Color(0xFF9F76B4);
   static const darkPurple = Color(0xFF542d69);
   static const lightGreen = Color(0xFF61C791);
@@ -44,5 +44,22 @@ final appTheme = ThemeData(
 
   // Text data
   typography: Typography.material2018(platform: defaultTargetPlatform),
-  textTheme: GoogleFonts.lexendTextTheme(),
+  textTheme: GoogleFonts.lexendTextTheme(
+    const TextTheme(
+      titleMedium: TextStyle(
+        fontSize: 21,
+        fontWeight: FontWeight.w500,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        color: CustomColors.darkGray,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: CustomColors.black,
+      ),
+    ),
+  ),
 );
