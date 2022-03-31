@@ -4,7 +4,16 @@ import 'package:senior_project/profile/stats_block.dart';
 import 'package:senior_project/theme.dart';
 
 class Statistics extends StatelessWidget {
-  const Statistics({Key? key}) : super(key: key);
+  final int completedModules;
+  final int quickchatsPracticed;
+  final int exercisesCompleted;
+
+  const Statistics(
+      {Key? key,
+      required this.completedModules,
+      required this.quickchatsPracticed,
+      required this.exercisesCompleted})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +21,23 @@ class Statistics extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Expanded(
               flex: 3,
-              child: StatsBlock(value: 3, measurement: 'Completed Modules'),
+              child: StatsBlock(
+                  value: completedModules, measurement: 'Completed Modules'),
             ),
             Expanded(
               flex: 3,
-              child: StatsBlock(value: 28, measurement: 'QuickChats Practiced'),
+              child: StatsBlock(
+                  value: quickchatsPracticed,
+                  measurement: 'QuickChats Practiced'),
             ),
             Expanded(
               flex: 3,
-              child: StatsBlock(value: 43, measurement: 'Exercises Completed'),
+              child: StatsBlock(
+                  value: exercisesCompleted,
+                  measurement: 'Exercises Completed'),
             )
           ],
         ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+  final String name;
+  const Header({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +15,10 @@ class Header extends StatelessWidget {
         const SizedBox(width: 23),
         Flexible(
           child: Text(
-            'Test User',
+            name,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-        )
+        ),
       ],
     );
   }
