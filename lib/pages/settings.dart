@@ -2,7 +2,6 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:senior_project/main_layout/custom_page.dart';
 //import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:english_words/english_words.dart';
 
 var settings = CustomPage(
   title: 'Settings',
