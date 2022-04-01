@@ -33,7 +33,7 @@ class TitleBar extends StatelessWidget {
               height: 65,
               child: Container(
                 alignment: Alignment.centerLeft,
-                color: CustomColors.white,
+                color: CustomColors.lightGray,
                 padding: const EdgeInsets.only(left: 156),
                 child: Text(
                   title,
