@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/main_layout/custom_page.dart';
 
-import 'package:senior_project/pages/pre_operation_page.dart';
-import 'package:senior_project/pages/during_operation_page.dart';
-import 'package:senior_project/pages/post_operation_page.dart';
+import 'package:senior_project/pages/module_pages/pre_operation_page.dart';
+import 'package:senior_project/pages/module_pages/during_operation_page.dart';
+import 'package:senior_project/pages/module_pages/post_operation_page.dart';
 
 class ModulesPageChild extends StatelessWidget {
   @override
