@@ -21,7 +21,7 @@ class TitleBar extends StatelessWidget {
       // sizedbox to span screen
       child: SizedBox(
         width: double.infinity,
-        height: 95,
+        height: 120,
 
         // stack to place image/logo on top of bar
         child: Stack(
@@ -33,7 +33,7 @@ class TitleBar extends StatelessWidget {
               height: 65,
               child: Container(
                 alignment: Alignment.centerLeft,
-                color: CustomColors.white,
+                color: CustomColors.lightGray,
                 padding: const EdgeInsets.only(left: 156),
                 child: Text(
                   title,
@@ -44,12 +44,28 @@ class TitleBar extends StatelessWidget {
             ),
 
             // logo/image
-            Container(
-              padding: const EdgeInsets.only(left: 28),
-              child: const Image(
-                image: AssetImage('assets/images/university_logo.png'),
+            CircleAvatar(
+                //padding: const EdgeInsets.only(left: 28),
+                radius: 70,
+                backgroundColor: Colors.teal,
+                child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/logo.png'),
+                    radius: 50,
+                ),
               ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.only(left: 28),
+            //   decoration: BoxDecoration(
+            //       border: Border.all(
+            //         color: const Color(0xFF61C791),
+            //       ),
+            //       borderRadius: BorderRadius.all(Radius.circular(50))
+            //     ),
+            //   child: const Image(
+            //     image: AssetImage('assets/images/logo.png'),
+            //
+            //   ),
+            //),
           ],
         ),
       ),

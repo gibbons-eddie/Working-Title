@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/theme.dart';
 
 class CustomPage extends StatelessWidget {
+  static final theme = appTheme;
   final String title; // text to display on the app bar
   final IconData icon; // icon to display on the nav bar
   final Widget _child; // child widget to display in the body
