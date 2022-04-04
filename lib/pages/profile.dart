@@ -47,8 +47,6 @@ var profile = CustomPage(
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              profile_sections.Header(name: snapshot.data['name']),
-              const SizedBox(height: 24),
               ProfileSection(
                 title: 'Statistics',
                 child: profile_sections.Statistics(

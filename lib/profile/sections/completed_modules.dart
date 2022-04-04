@@ -7,72 +7,13 @@ class CompletedModules extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 47,
-      runSpacing: 12,
+      // spacing: 47,
+      // runSpacing: 12,
+      alignment: WrapAlignment.spaceEvenly,
       children: const [
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
-        CompletionBadge(
-          image: Image(
-            width: 50,
-            height: 50,
-            image: AssetImage('assets/images/university_logo.png'),
-          ),
-        ),
+        CompletionBadge(image: AssetImage('assets/images/Module1.PNG')),
+        CompletionBadge(image: AssetImage('assets/images/Module2.PNG')),
+        CompletionBadge(image: AssetImage('assets/images/Module3.PNG')),
       ],
     );
   }
