@@ -45,14 +45,14 @@ class TitleBar extends StatelessWidget {
 
             // logo/image
             CircleAvatar(
-                //padding: const EdgeInsets.only(left: 28),
-                radius: 70,
-                backgroundColor: Colors.teal,
-                child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/logo.png'),
-                    radius: 50,
-                ),
+              //padding: const EdgeInsets.only(left: 28),
+              radius: 70,
+              backgroundColor: Colors.teal,
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/Logo.PNG'),
+                radius: 50,
               ),
+            ),
             // Container(
             //   padding: const EdgeInsets.only(left: 28),
             //   decoration: BoxDecoration(
