@@ -19,29 +19,14 @@ Future<Phrase> _getPhrase(Database db, {avoidCompleted = true}) async {
   final map = maps[Random().nextInt(maps.length)];
 
   // Construct Phrase object
-  return Phrase(
-    id: map['id'],
-    phrase: map['phrase'],
-    prompt: map['prompt'],
-    audioFile: map['audio_file'],
-    completed: map['completed'] == 1,
-    advancedCompleted: map['advanced_completed'] == 1,
-    moduleId: map['module_id'],
-  );
+  return Phrase.fromJson(map);
 }
 
 Future<List<PhraseOption>> _getOptions(Database db, int phraseId) async {
   final List<Map<String, dynamic>> maps = await db
       .query('phrase_options', where: 'phrase_id = ?', whereArgs: [phraseId]);
-  var optionsList = List.generate(maps.length, (i) {
-    return PhraseOption(
-      id: maps[i]['id'],
-      option: maps[i]['option'],
-      correct: maps[i]['correct'] == 1,
-      advanced: maps[i]['advanced'] == 1,
-      phraseId: maps[i]['phrase_id'],
-    );
-  });
+  var optionsList =
+      List.generate(maps.length, (i) => PhraseOption.fromJson(maps[i]));
   optionsList.shuffle();
 
   return optionsList;
@@ -64,18 +49,11 @@ var quickchat = CustomPage(
         Phrase phrase = snapshot.data![0];
         List<PhraseOption> options = snapshot.data![1];
 
-        return Column(
-          children: [
-            SubContainer(
-              child: FillInBlankExercise(
-                prompt: phrase.prompt,
-                options: options.map((item) => item.option).toList(),
-                correctOption:
-                    options.where((item) => item.correct).first.option,
-              ),
-            ),
-            Text('Return to modules'),
-          ],
+        return SubContainer(
+          child: FillInBlankExercise(
+            phrase: phrase,
+            options: options,
+          ),
         );
       }
       if (snapshot.hasError) {

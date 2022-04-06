@@ -1,119 +1,113 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
+import 'package:senior_project/intermediate_exercises/subcontainer.dart';
 import 'package:senior_project/main_layout/custom_page.dart';
+import 'package:senior_project/main_layout/pages.dart';
+import 'package:senior_project/models/phrase.dart';
 import 'package:senior_project/profile/profile_section.dart';
 import 'package:senior_project/theme.dart';
 import 'package:senior_project/profile/profile_sections.dart'
     as profile_sections;
 import 'package:sqflite/sqflite.dart';
 
-// Use this function to copy the database from the assets folder to the app's
-// database folder or use the existing copy. I'm guessing that if you update
-// the database in the assets folder, it won't copy it again, so you'll have to
-// delete the existing copy somehow.
-Future<Database> _getDatabase() async {
-  // Get the path to the database.
-  var databasesPath = await getDatabasesPath();
-  var path = join(databasesPath, 'senior_project_app.db');
+Future<List<Phrase>> _getPhrases(Database db) async {
+  // Get incomplete phrases from db
+  final List<Map<String, dynamic>> maps;
+  maps = await db.query('phrases');
 
-  // Check if the database exists.
-  var exists = await databaseExists(path);
-
-  // Make a copy from the asset folder.
-  if (!exists) {
-    if (kDebugMode) print('Creating new copy from asset.');
-
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-    } catch (_) {}
-
-    // Copy from asset.
-    ByteData data =
-        await rootBundle.load(join('assets/db', 'senior_project_app.db'));
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-    // Write and flush the bytes written.
-    await File(path).writeAsBytes(bytes, flush: true);
-  } else {
-    if (kDebugMode) print('Opening existing database.');
-  }
-
-  return await openDatabase(path);
+  // Construct and return Phrase objects
+  return List.generate(maps.length, (i) => Phrase.fromJson(maps[i]));
 }
 
 // Placeholder method to gather data from SQLite database
-Future<Map<String, dynamic>> collectData() async {
-  // return Future.delayed(
-  //   const Duration(seconds: 3),
-  //   () => {
-  //     'name': 'Jane Doe',
-  //     'completed_modules': 3,
-  //     'quickchats_practiced': 28,
-  //     'exercises_completed': 43,
-  //   },
-  // );
-  Database db = await _getDatabase();
-  final completedModules = (await db
-          .rawQuery('SELECT * FROM modules_table WHERE user_completed == 1'))
-      .length;
-  return {
-    'completed_modules': completedModules,
-    'quickchats_practiced': 0,
-    'exercises_completed': 0,
+Future<Map<String, dynamic>> _collectData() async {
+  Database db = await getDatabase();
+
+  // Get all phrases
+  final phrases = await _getPhrases(db);
+
+  // Determine completed phrases
+  final completedPhrases =
+      phrases.where((p) => p.completed || p.advancedCompleted).toSet();
+
+  Map<String, dynamic> result = {
+    'completedPhrases': completedPhrases,
   };
+
+  // Determine module completion
+  for (var i = 0; i < 3; i++) {
+    final modulePhrases = phrases.where((p) => p.moduleId == i).toSet();
+    var moduleCompletedCount = 0;
+
+    for (final phrase in modulePhrases) {
+      if (phrase.completed) moduleCompletedCount++;
+      if (phrase.advancedCompleted) moduleCompletedCount++;
+    }
+    result['module' + (i + 1).toString()] =
+        moduleCompletedCount / modulePhrases.length;
+  }
+
+  return result;
 }
 
 var profile = CustomPage(
-  title: 'Profile',
+  title: 'Statistics',
   icon: Icons.portrait,
-  child: Container(
-    // Take up all possible space
-    constraints: const BoxConstraints.expand(),
-    margin: const EdgeInsets.only(
-      left: 29,
-      right: 29,
-      bottom: 29,
-    ),
-    padding: const EdgeInsets.all(32),
-
-    // Add border and background
-    decoration: BoxDecoration(
-      color: CustomColors.white,
-      border: Border.all(
-        color: CustomColors.lightGreen,
-        width: 5,
-      ),
-      borderRadius: BorderRadius.circular(65),
-    ),
-    child: FutureBuilder(
-      future: collectData(),
+  child: SubContainer(
+    child: FutureBuilder<Map<String, dynamic>>(
+      future: _collectData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
+          // Get module progress
+          final List<double> moduleProgress = [
+            snapshot.data['module1'],
+            0.5,
+            1,
+          ];
+
+          // Get completed phrases
+          final Set<Phrase> completedPhrases =
+              snapshot.data['completedPhrases'];
+
+          // Calculate completed exercises from completed phrases
+          var completedExercises = 0;
+          for (final p in completedPhrases) {
+            if (p.completed) completedExercises++;
+            if (p.advancedCompleted) completedExercises++;
+          }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Stats
               ProfileSection(
                 title: 'Statistics',
                 child: profile_sections.Statistics(
-                    completedModules: snapshot.data['completed_modules'],
-                    quickchatsPracticed: snapshot.data['quickchats_practiced'],
-                    exercisesCompleted: snapshot.data['exercises_completed']),
+                  completedModules:
+                      moduleProgress.where((element) => element == 1).length,
+                  exercisesCompleted: completedExercises,
+                  moduleProgress: moduleProgress,
+                ),
               ),
+
+              // Spacing
               const SizedBox(height: 24),
-              const ProfileSection(
+
+              // Completed modules
+              ProfileSection(
                 title: 'Completed Modules',
-                child: profile_sections.CompletedModules(),
+                child: profile_sections.CompletedModules(
+                    moduleProgress: moduleProgress),
               ),
             ],
           );
         }
+
+        // Handle error
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         }
+
+        // Handle loading
         return const Center(
           child: CircularProgressIndicator(
             color: CustomColors.lightGreen,

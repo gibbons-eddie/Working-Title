@@ -5,15 +5,15 @@ import 'package:senior_project/theme.dart';
 
 class Statistics extends StatelessWidget {
   final int completedModules;
-  final int quickchatsPracticed;
   final int exercisesCompleted;
+  final List<double> moduleProgress;
 
-  const Statistics(
-      {Key? key,
-      required this.completedModules,
-      required this.quickchatsPracticed,
-      required this.exercisesCompleted})
-      : super(key: key);
+  const Statistics({
+    Key? key,
+    required this.completedModules,
+    required this.exercisesCompleted,
+    required this.moduleProgress,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,36 +23,42 @@ class Statistics extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              flex: 3,
               child: StatsBlock(
                   value: completedModules, measurement: 'Completed Modules'),
             ),
             Expanded(
-              flex: 3,
-              child: StatsBlock(
-                  value: quickchatsPracticed,
-                  measurement: 'QuickChats Practiced'),
-            ),
-            Expanded(
-              flex: 3,
               child: StatsBlock(
                   value: exercisesCompleted,
                   measurement: 'Exercises Completed'),
             )
           ],
         ),
-        const SizedBox(height: 14),
-        LinearPercentIndicator(
-          percent: 2 / 3,
-          lineHeight: 28,
-          progressColor: CustomColors.lightGreen,
-          backgroundColor: CustomColors.lightGray,
-          animation: true,
-          animationDuration: 500,
-          barRadius: const Radius.circular(3),
-          padding: const EdgeInsets.all(0),
-          center: const Text('66% Quickchat Accuracy'),
-        ),
+
+        // Spacing
+        const SizedBox(height: 12),
+
+        // Progress bars
+        Wrap(
+          runSpacing: 12,
+          children: [
+            ...moduleProgress.asMap().entries.map((entry) {
+              int index = entry.key;
+              double progress = entry.value;
+
+              return LinearPercentIndicator(
+                percent: progress,
+                lineHeight: 48,
+                progressColor: CustomColors.lightGreen,
+                backgroundColor: CustomColors.lightGray,
+                animation: true,
+                animationDuration: 500,
+                barRadius: const Radius.circular(3),
+                padding: const EdgeInsets.all(0),
+                center: Text('Module ${index + 1} Progress'),
+              );
+            }).toList()
+          ],
+        )
       ],
     );
   }

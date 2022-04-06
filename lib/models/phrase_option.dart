@@ -12,4 +12,12 @@ class PhraseOption {
     required this.advanced,
     required this.phraseId,
   });
+
+  factory PhraseOption.fromJson(Map<String, dynamic> json) => PhraseOption(
+        id: json['id'],
+        option: json['option'],
+        correct: json['correct'] == 1,
+        advanced: json['advanced'] == 1,
+        phraseId: json['phrase_id'],
+      );
 }

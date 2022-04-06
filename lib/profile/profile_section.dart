@@ -16,7 +16,7 @@ class ProfileSection extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 12),
         child,
       ],
     );

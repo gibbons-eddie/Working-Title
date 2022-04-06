@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/models/phrase_option.dart';
 import 'package:senior_project/theme.dart';
 
 // Constant values
@@ -65,27 +66,24 @@ ButtonStyle _grayButtonStyle = const ButtonStyle().copyWith(
       MaterialStateProperty.all(const Color.fromARGB(255, 172, 172, 172)),
 );
 
-ButtonStyle getButtonStyle(String option, String correctOption,
-    String selectedOption, bool isAnswered, bool isCorrect) {
-  if (isAnswered && isCorrect && option == correctOption) {
+ButtonStyle getButtonStyle(PhraseOption option, PhraseOption correctOption,
+    PhraseOption? selectedOption, bool isCorrect) {
+  if (selectedOption == null) {
+    return _unansweredButtonStyle;
+  }
+  if (isCorrect && option == correctOption) {
     return _greenButtonStyle;
   }
-  if (isAnswered && isCorrect && option != correctOption) {
+  if (isCorrect && option != correctOption) {
     return _grayButtonStyle;
   }
-  if (isAnswered && !isCorrect && option == correctOption) {
+  if (!isCorrect && option == correctOption) {
     return _greenButtonStyle;
   }
-  if (isAnswered &&
-      !isCorrect &&
-      option != correctOption &&
-      option == selectedOption) {
+  if (!isCorrect && option != correctOption && option == selectedOption) {
     return _redButtonStyle;
   }
-  if (isAnswered &&
-      !isCorrect &&
-      option != correctOption &&
-      option != selectedOption) {
+  if (!isCorrect && option != correctOption && option != selectedOption) {
     return _grayButtonStyle;
   }
   return _unansweredButtonStyle;
