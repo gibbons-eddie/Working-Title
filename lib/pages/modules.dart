@@ -19,6 +19,9 @@ Future<Database> getDatabase() async {
   var databasesPath = await getDatabasesPath();
   var path = join(databasesPath, 'senior_project_app.db');
 
+  // ***** REMOVE THIS IN PRODUCTION *****
+  deleteDatabase(path);
+
   // Check if the database exists.
   var exists = await databaseExists(path);
 

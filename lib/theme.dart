@@ -55,6 +55,11 @@ final appTheme = ThemeData(
         fontWeight: FontWeight.w500,
         color: CustomColors.darkGray,
       ),
+      bodyMedium: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: CustomColors.black,
+      ),
       bodySmall: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w500,
