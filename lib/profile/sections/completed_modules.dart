@@ -18,6 +18,7 @@ class CompletedModules extends StatelessWidget {
         if (progress == 1) {
           badges.add(
             CompletionBadge(
+              name: 'Module ${index + 1}',
               image: AssetImage('assets/images/Module${index + 1}.PNG'),
             ),
           );

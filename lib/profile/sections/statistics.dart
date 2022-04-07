@@ -47,7 +47,7 @@ class Statistics extends StatelessWidget {
 
               return LinearPercentIndicator(
                 percent: progress,
-                lineHeight: 48,
+                lineHeight: 32,
                 progressColor: CustomColors.lightGreen,
                 backgroundColor: CustomColors.lightGray,
                 animation: true,
