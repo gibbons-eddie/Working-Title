@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:senior_project/intermediate_exercises/button_styles.dart';
 import 'package:senior_project/models/phrase.dart';
 import 'package:senior_project/models/phrase_option.dart';
+import 'package:sqflite/sqflite.dart';
 
 class FillInBlankExercise extends StatefulWidget {
   final Phrase phrase;
@@ -39,7 +41,16 @@ class _FillInBlankExerciseState extends State<FillInBlankExercise> {
     List<Widget> optionsButtons = options
         .map(
           (item) => TextButton(
-            onPressed: () {
+            onPressed: () async {
+              // Update item as completed in db
+              if (item == correctOption) {
+                final db = await openDatabase(
+                    join(await getDatabasesPath(), 'senior_project_app.db'));
+                await db.update('phrases', {'completed': 1},
+                    where: 'id = ?', whereArgs: [widget.phrase.id]);
+              }
+
+              // Set the widget state
               setState(() {
                 selectedOption = item;
                 if (item == correctOption) isCorrect = true;
