@@ -44,7 +44,7 @@ class TitleBar extends StatelessWidget {
             ),
 
             // logo/image
-            CircleAvatar(
+            const CircleAvatar(
               //padding: const EdgeInsets.only(left: 28),
               radius: 70,
               backgroundColor: Colors.teal,

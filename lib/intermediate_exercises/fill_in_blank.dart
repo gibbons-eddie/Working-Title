@@ -8,12 +8,14 @@ import 'package:sqflite/sqflite.dart';
 class FillInBlankExercise extends StatefulWidget {
   final Phrase phrase;
   final List<PhraseOption> options;
+  final Function reactToAnswer;
 
-  const FillInBlankExercise({
-    Key? key,
-    required this.phrase,
-    required this.options,
-  }) : super(key: key);
+  const FillInBlankExercise(
+      {Key? key,
+      required this.phrase,
+      required this.options,
+      required this.reactToAnswer})
+      : super(key: key);
 
   @override
   _FillInBlankExerciseState createState() => _FillInBlankExerciseState();
@@ -23,15 +25,19 @@ class _FillInBlankExerciseState extends State<FillInBlankExercise> {
   var isCorrect = false;
   PhraseOption? selectedOption;
   List<PhraseOption> options = [];
-  late PhraseOption correctOption =
-      options.firstWhere((element) => element.correct);
+  late PhraseOption correctOption;
 
   @override
   initState() {
+    isCorrect = false;
+    selectedOption = null;
+    options = [];
+
     // Shuffle options
     var tmp = [...widget.options];
     tmp.shuffle();
     options = tmp;
+    correctOption = options.firstWhere((element) => element.correct);
     super.initState();
   }
 
@@ -55,6 +61,10 @@ class _FillInBlankExerciseState extends State<FillInBlankExercise> {
                 selectedOption = item;
                 if (item == correctOption) isCorrect = true;
               });
+
+              await Future.delayed(const Duration(seconds: 2));
+              widget.reactToAnswer();
+              initState();
             },
             style:
                 getButtonStyle(item, correctOption, selectedOption, isCorrect),

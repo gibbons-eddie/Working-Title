@@ -10,13 +10,17 @@ class SubContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // Take up all possible space
-      constraints: const BoxConstraints.expand(),
+      // constraints: const BoxConstraints.expand(),
       margin: const EdgeInsets.only(
         left: 29,
         right: 29,
-        bottom: 29,
       ),
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.only(
+        left: 29,
+        right: 29,
+        top: 50,
+        bottom: 50,
+      ),
 
       // Add border and background
       decoration: BoxDecoration(

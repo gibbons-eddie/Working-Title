@@ -1,123 +1,121 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 import 'package:senior_project/main_layout/custom_page.dart';
-import 'package:senior_project/pages/module_pages/pre_operation_page.dart';
-import 'package:senior_project/pages/module_pages/during_operation_page.dart';
-import 'package:senior_project/pages/module_pages/post_operation_page.dart';
-import 'package:senior_project/pages/module_pages/vocab_card.dart';
-import 'package:sqflite/sqflite.dart';
-
-// Use this function to copy the database from the assets folder to the app's
-// database folder or use the existing copy. I'm guessing that if you update
-// the database in the assets folder, it won't copy it again, so you'll have to
-// delete the existing copy somehow.
-Future<Database> getDatabase() async {
-  // Get the path to the database.
-  var databasesPath = await getDatabasesPath();
-  var path = join(databasesPath, 'senior_project_app.db');
-
-  // ***** REMOVE THIS IN PRODUCTION *****
-  deleteDatabase(path);
-
-  // Check if the database exists.
-  var exists = await databaseExists(path);
-
-  // Make a copy from the asset folder.
-  if (!exists) {
-    if (kDebugMode) print('Creating new copy from asset.');
-
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-    } catch (_) {}
-
-    // Copy from asset.
-    ByteData data =
-        await rootBundle.load(join('assets/db', 'senior_project_app.db'));
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-    // Write and flush the bytes written.
-    await File(path).writeAsBytes(bytes, flush: true);
-  } else {
-    if (kDebugMode) print('Opening existing database.');
-  }
-
-  return await openDatabase(path);
-}
+import 'package:senior_project/models/module.dart';
+import 'package:senior_project/modules/module_button.dart';
+import 'package:senior_project/modules/module_difficulty_selection.dart';
+import 'package:senior_project/util.dart';
 
 // Use this function to get some data from the database.
-Future<List<Map>> getData() async {
-  Database db = await getDatabase();
-  return await db.rawQuery('SELECT * FROM vocab_table');
+// Future<List<Map>> getData() async {
+//   Database db = await getDatabase();
+//   return await db.rawQuery('SELECT * FROM vocab_table');
+// }
+
+// class ModulesPageChild extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Column(
+//         children: <Widget>[
+//           ElevatedButton(
+//               child: Text('Pre Operation'),
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                       builder: (context) => const PreOperationPage()),
+//                 );
+//               }),
+//           ElevatedButton(
+//               child: Text('During Operation'),
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                       builder: (context) => const DuringOperationPage()),
+//                 );
+//               }),
+//           ElevatedButton(
+//               child: Text('Post Operation'),
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                       builder: (context) => const PostOperationPage()),
+//                 );
+//               }),
+
+//           // The below widget will render a VocabCard for the first row of the
+//           // result from the database query (see the getData function above).
+//           // We should probably have better type safety somehow instead of
+//           // doing "snapshot.data as a List<Map>" but for now this works.
+//           FutureBuilder(
+//             future: getData(),
+//             builder: (context, snapshot) {
+//               if (snapshot.hasData) {
+//                 return VocabCard(
+//                     term: (snapshot.data as List<Map>)[0]['term'],
+//                     definition: (snapshot.data as List<Map>)[0]['def']);
+//               }
+//               if (snapshot.hasError) {
+//                 return Text('Error: ${snapshot.error}');
+//               }
+//               return const CircularProgressIndicator();
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class ModulesPage extends CustomPage {
+//   ModulesPage({Key? key})
+//       : super(
+//             title: 'Modules',
+//             icon: Icons.library_books,
+//             child: ModulesPageChild());
+// }
+
+Future<List<Module>> _getData() async {
+  final db = await getDatabase();
+  final List<Map<String, dynamic>> maps = await db.query('modules');
+  return List.generate(maps.length, (index) => Module.fromJson(maps[index]));
 }
 
-class ModulesPageChild extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          ElevatedButton(
-              child: Text('Pre Operation'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PreOperationPage()),
-                );
-              }),
-          ElevatedButton(
-              child: Text('During Operation'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DuringOperationPage()),
-                );
-              }),
-          ElevatedButton(
-              child: Text('Post Operation'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PostOperationPage()),
-                );
-              }),
+final modules = CustomPage(
+  title: 'Modules',
+  icon: Icons.library_books,
+  child: FutureBuilder<List<Module>>(
+    future: _getData(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        final List<Module> modules = snapshot.data ?? [];
 
-          // The below widget will render a VocabCard for the first row of the
-          // result from the database query (see the getData function above).
-          // We should probably have better type safety somehow instead of
-          // doing "snapshot.data as a List<Map>" but for now this works.
-          FutureBuilder(
-            future: getData(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return VocabCard(
-                    term: (snapshot.data as List<Map>)[0]['term'],
-                    definition: (snapshot.data as List<Map>)[0]['def']);
-              }
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              }
-              return const CircularProgressIndicator();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ModulesPage extends CustomPage {
-  ModulesPage({Key? key})
-      : super(
-            title: 'Modules',
-            icon: Icons.library_books,
-            child: ModulesPageChild());
-}
-
-var modules = ModulesPage();
+        return Wrap(
+          spacing: 25,
+          runSpacing: 25,
+          children: modules
+              .map((e) => ModuleButton(
+                    module: e,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            body: ModuleDifficultySelection(module: e),
+                          ),
+                        ),
+                      );
+                    },
+                  ))
+              .toList(),
+        );
+      }
+      if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      }
+      return const CircularProgressIndicator();
+    },
+  ),
+);

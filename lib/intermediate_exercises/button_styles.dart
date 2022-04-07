@@ -4,7 +4,7 @@ import 'package:senior_project/theme.dart';
 
 // Constant values
 const double _borderWidth = 3.0;
-final _borderRadius = BorderRadius.all(Radius.circular(5.0));
+const _borderRadius = BorderRadius.all(Radius.circular(5.0));
 final _foregroundColor = MaterialStateProperty.all(CustomColors.white);
 final _textStyle = MaterialStateProperty.all(appTheme.textTheme.bodyMedium);
 final _fixedSize = MaterialStateProperty.all(const Size(200.0, 50.0));
@@ -20,8 +20,8 @@ ButtonStyle _greenButtonStyle = const ButtonStyle().copyWith(
   textStyle: _textStyle,
   fixedSize: _fixedSize,
   shape: MaterialStateProperty.all(
-    RoundedRectangleBorder(
-      side: const BorderSide(
+    const RoundedRectangleBorder(
+      side: BorderSide(
         color: CustomColors.darkGreen,
         width: _borderWidth,
       ),
@@ -37,8 +37,8 @@ ButtonStyle _redButtonStyle = const ButtonStyle().copyWith(
   textStyle: _textStyle,
   fixedSize: _fixedSize,
   shape: MaterialStateProperty.all(
-    RoundedRectangleBorder(
-      side: const BorderSide(
+    const RoundedRectangleBorder(
+      side: BorderSide(
         color: Colors.red,
         width: _borderWidth,
       ),
@@ -54,8 +54,8 @@ ButtonStyle _grayButtonStyle = const ButtonStyle().copyWith(
   textStyle: _textStyle,
   fixedSize: _fixedSize,
   shape: MaterialStateProperty.all(
-    RoundedRectangleBorder(
-      side: const BorderSide(
+    const RoundedRectangleBorder(
+      side: BorderSide(
         color: CustomColors.darkGray,
         width: _borderWidth,
       ),

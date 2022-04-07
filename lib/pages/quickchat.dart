@@ -5,7 +5,7 @@ import 'package:senior_project/intermediate_exercises/subcontainer.dart';
 import 'package:senior_project/main_layout/custom_page.dart';
 import 'package:senior_project/models/phrase.dart';
 import 'package:senior_project/models/phrase_option.dart';
-import 'package:senior_project/pages/modules.dart';
+import 'package:senior_project/util.dart';
 import 'package:sqflite/sqflite.dart';
 
 Future<Phrase> _getPhrase(Database db, {avoidCompleted = true}) async {
@@ -53,6 +53,7 @@ var quickchat = CustomPage(
           child: FillInBlankExercise(
             phrase: phrase,
             options: options,
+            reactToAnswer: () {},
           ),
         );
       }

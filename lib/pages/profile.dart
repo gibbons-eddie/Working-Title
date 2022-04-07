@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/intermediate_exercises/subcontainer.dart';
 import 'package:senior_project/main_layout/custom_page.dart';
-import 'package:senior_project/main_layout/pages.dart';
 import 'package:senior_project/models/phrase.dart';
 import 'package:senior_project/profile/profile_section.dart';
 import 'package:senior_project/theme.dart';
 import 'package:senior_project/profile/profile_sections.dart'
     as profile_sections;
+import 'package:senior_project/util.dart';
 import 'package:sqflite/sqflite.dart';
 
 Future<List<Phrase>> _getPhrases(Database db) async {
