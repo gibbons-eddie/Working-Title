@@ -90,7 +90,7 @@ var profile = CustomPage(
               ),
 
               // Spacing
-              const SizedBox(height: 24),
+              const SizedBox(height: 36),
 
               // Completed modules
               ProfileSection(

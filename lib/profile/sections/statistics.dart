@@ -54,7 +54,8 @@ class Statistics extends StatelessWidget {
                 animationDuration: 500,
                 barRadius: const Radius.circular(3),
                 padding: const EdgeInsets.all(0),
-                center: Text('Module ${index + 1} Progress'),
+                center: Text(
+                    'Module ${index + 1} - ${(progress * 100).toStringAsFixed(0)}%'),
               );
             }).toList()
           ],
