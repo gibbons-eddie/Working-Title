@@ -90,7 +90,7 @@ class ModulesPageChild extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const PreOperationPage()),
+                  builder: (context) => const DuringOperationPage()),
             );
           }),
           Padding(
@@ -111,7 +111,7 @@ class ModulesPageChild extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const PreOperationPage()),
+                  builder: (context) => const PostOperationPage()),
             );
           }),
           Padding(
