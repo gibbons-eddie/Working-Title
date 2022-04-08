@@ -13,8 +13,9 @@ import 'package:senior_project/pages/module_pages/phrase_card.dart';
 class PhraseCard extends StatelessWidget {
   final String phrase;
   final String type;
+  TextEditingController myTextController = TextEditingController();
 
-  var myTextController = TextEditingController();
+  String currentText = "";
 
   PhraseCard({Key? key, required this.phrase, required this.type})
       : super(key: key);
@@ -67,14 +68,16 @@ class PhraseCard extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 child: TextField(
-                  // controller: myTextController, // gives error for some reason
+                  controller: myTextController, // gives error for some reason
+                  onChanged: (v) => myTextController.text = v,
                   decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter a search term',
                   ),
+
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -82,11 +85,11 @@ class PhraseCard extends StatelessWidget {
           ],
         ),
         TextButton(
-              onPressed: () async {
-                // await playLocalAsset();
-              }, // needs to play audio file
-              child: const Text('Submit'),
-            ),
+          onPressed: () async {
+            // await playLocalAsset();
+          }, // needs to play audio file
+          child: const Text('Submit'),
+        ),
       ],
     )));
   }
