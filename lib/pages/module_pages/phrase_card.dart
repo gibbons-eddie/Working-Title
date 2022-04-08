@@ -14,6 +14,8 @@ class PhraseCard extends StatelessWidget {
   final String phrase;
   final String type;
 
+  var myTextController = TextEditingController();
+
   PhraseCard({Key? key, required this.phrase, required this.type})
       : super(key: key);
 
@@ -39,7 +41,7 @@ class PhraseCard extends StatelessWidget {
 
     AudioCache cache = new AudioCache();
 
-    return await cache.play("recordings/" + mod[1] + "phrase03.mp3");
+    return await cache.play("recordings/" + mod[2] + "phrase01.mp3");
   }
 
   @override
@@ -51,7 +53,7 @@ class PhraseCard extends StatelessWidget {
       children: <Widget>[
         ListTile(
           leading: const Icon(Icons.album),
-          title: Text(phrase),
+          title: Text("What is this phrase?"), // used to show phrase
           subtitle: Text(type),
         ),
         Row(
@@ -64,8 +66,27 @@ class PhraseCard extends StatelessWidget {
               child: const Text('Play'),
             ),
             const SizedBox(width: 8),
+            Expanded(
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                child: TextField(
+                  // controller: myTextController, // gives error for some reason
+                  decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter a search term',
+                  ),
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
           ],
-        )
+        ),
+        TextButton(
+              onPressed: () async {
+                // await playLocalAsset();
+              }, // needs to play audio file
+              child: const Text('Submit'),
+            ),
       ],
     )));
   }
