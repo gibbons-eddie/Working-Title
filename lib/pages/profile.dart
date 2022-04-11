@@ -52,68 +52,71 @@ Future<Map<String, dynamic>> _collectData() async {
 var profile = CustomPage(
   title: 'Statistics',
   icon: Icons.portrait,
-  child: SubContainer(
-    child: FutureBuilder<Map<String, dynamic>>(
-      future: _collectData(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          // Get module progress
-          final List<double> moduleProgress = [
-            snapshot.data['module1'],
-            0.5,
-            1,
-          ];
+  child: Container(
+    margin: const EdgeInsets.only(bottom: 32),
+    child: SubContainer(
+      child: FutureBuilder<Map<String, dynamic>>(
+        future: _collectData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            // Get module progress
+            final List<double> moduleProgress = [
+              snapshot.data['module1'],
+              0.5,
+              1,
+            ];
 
-          // Get completed phrases
-          final Set<Phrase> completedPhrases =
-              snapshot.data['completedPhrases'];
+            // Get completed phrases
+            final Set<Phrase> completedPhrases =
+                snapshot.data['completedPhrases'];
 
-          // Calculate completed exercises from completed phrases
-          var completedExercises = 0;
-          for (final p in completedPhrases) {
-            if (p.completed) completedExercises++;
-            if (p.advancedCompleted) completedExercises++;
+            // Calculate completed exercises from completed phrases
+            var completedExercises = 0;
+            for (final p in completedPhrases) {
+              if (p.completed) completedExercises++;
+              if (p.advancedCompleted) completedExercises++;
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Stats
+                ProfileSection(
+                  title: 'Statistics',
+                  child: profile_sections.Statistics(
+                    completedModules:
+                        moduleProgress.where((element) => element == 1).length,
+                    exercisesCompleted: completedExercises,
+                    moduleProgress: moduleProgress,
+                  ),
+                ),
+
+                // Spacing
+                const SizedBox(height: 36),
+
+                // Completed modules
+                ProfileSection(
+                  title: 'Completed Modules',
+                  child: profile_sections.CompletedModules(
+                      moduleProgress: moduleProgress),
+                ),
+              ],
+            );
           }
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Stats
-              ProfileSection(
-                title: 'Statistics',
-                child: profile_sections.Statistics(
-                  completedModules:
-                      moduleProgress.where((element) => element == 1).length,
-                  exercisesCompleted: completedExercises,
-                  moduleProgress: moduleProgress,
-                ),
-              ),
+          // Handle error
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }
 
-              // Spacing
-              const SizedBox(height: 36),
-
-              // Completed modules
-              ProfileSection(
-                title: 'Completed Modules',
-                child: profile_sections.CompletedModules(
-                    moduleProgress: moduleProgress),
-              ),
-            ],
+          // Handle loading
+          return const Center(
+            child: CircularProgressIndicator(
+              color: CustomColors.lightGreen,
+            ),
           );
-        }
-
-        // Handle error
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-
-        // Handle loading
-        return const Center(
-          child: CircularProgressIndicator(
-            color: CustomColors.lightGreen,
-          ),
-        );
-      },
+        },
+      ),
     ),
   ),
 );
