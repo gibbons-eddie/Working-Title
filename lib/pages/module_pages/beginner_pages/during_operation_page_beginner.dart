@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/pages/module_pages/beginner_pages/pre_operation_page_flashcards.dart';
+import 'package:senior_project/pages/module_pages/beginner_pages/during_operation_page_flashcards.dart';
 
 
-class PreOperationBeginner extends StatelessWidget {
-  const PreOperationBeginner({Key? key}) : super(key: key);
+class DuringOperationBeginner extends StatelessWidget {
+  const DuringOperationBeginner({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class PreOperationBeginner extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                   MaterialPageRoute(
-                      builder: (context) => const FlashCardsBeginnerPre()),
+                      builder: (context) => const FlashCardsBeginnerDuring()),
                 );
                 }, child: Text("Flashcards"),
               ),

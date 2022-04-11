@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:senior_project/theme.dart';
 
-class FlashCardsBeginnerPre extends StatelessWidget {
-  const FlashCardsBeginnerPre({Key? key}) : super(key: key);
+class FlashCardsBeginnerDuring extends StatelessWidget {
+  const FlashCardsBeginnerDuring({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,106 +105,6 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('treatment', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightGreen
-              ),
-              back: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('การรักษา', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightPurple
-              ),
-            ), //treatment
-            FlipCard(
-              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
-              direction: FlipDirection.HORIZONTAL, // default
-              front: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('procedure', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightGreen
-              ),
-              back: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('การรักษา', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightPurple
-              ),
-            ), //procedure
-            FlipCard(
-              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
-              direction: FlipDirection.HORIZONTAL, // default
-              front: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('operation', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightGreen
-              ),
-              back: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('การผ่าตัด', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightPurple
-              ),
-            ), //operation
-            FlipCard(
-              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
-              direction: FlipDirection.HORIZONTAL, // default
-              front: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('condition', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightGreen
-              ),
-              back: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('อาการป่วย', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightPurple
-              ),
-            ), //condition
-            FlipCard(
-              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
-              direction: FlipDirection.HORIZONTAL, // default
-              front: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('high blood pressure', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightGreen
-              ),
-              back: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('ความดันสูง \n = hypertension', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
-                  color: CustomColors.lightPurple
-              ),
-            ), //high blood pressure
-            FlipCard(
-              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
-              direction: FlipDirection.HORIZONTAL, // default
-              front: Container(
-                  margin: EdgeInsets.all(25),
-                  width: 200,
-                  height: 150,
-                  padding: EdgeInsets.all(10.0),
                   child: Text('anesthetic', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightGreen
               ),
@@ -225,7 +125,7 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('sensitive teeth / tingling', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('turn', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightGreen
               ),
               back: Container(
@@ -233,10 +133,10 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('เสียวฟัน', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('หัน(หัว)', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightPurple
               ),
-            ), //sensitive teeth
+            ), //turn
             FlipCard(
               fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
               direction: FlipDirection.HORIZONTAL, // default
@@ -245,7 +145,7 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('wisdom teeth', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('raise', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightGreen
               ),
               back: Container(
@@ -253,10 +153,10 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('ฟันคุด \n = impacted teeth', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('ยก, เงย', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightPurple
               ),
-            ), //wisdom teetch
+            ), //raise
             FlipCard(
               fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
               direction: FlipDirection.HORIZONTAL, // default
@@ -265,7 +165,7 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('fracture', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('lower', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightGreen
               ),
               back: Container(
@@ -273,10 +173,50 @@ class FlashCardsBeginnerPre extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('กระดูกหัก, กระดูกหร้าว', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('ก้ม(หน้า)', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightPurple
               ),
-            ), //fracture
+            ), //lower
+            FlipCard(
+              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
+              direction: FlipDirection.HORIZONTAL, // default
+              front: Container(
+                  margin: EdgeInsets.all(25),
+                  width: 200,
+                  height: 150,
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('recline', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  color: CustomColors.lightGreen
+              ),
+              back: Container(
+                  margin: EdgeInsets.all(25),
+                  width: 200,
+                  height: 150,
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('นอนเอนลง', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  color: CustomColors.lightPurple
+              ),
+            ), //recline
+            FlipCard(
+              fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
+              direction: FlipDirection.HORIZONTAL, // default
+              front: Container(
+                  margin: EdgeInsets.all(25),
+                  width: 200,
+                  height: 150,
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('tartar', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  color: CustomColors.lightGreen
+              ),
+              back: Container(
+                  margin: EdgeInsets.all(25),
+                  width: 200,
+                  height: 150,
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('หินปูน \n = calculus', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  color: CustomColors.lightPurple
+              ),
+            ), //tartar
             FlipCard(
               fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
               direction: FlipDirection.HORIZONTAL, // default
