@@ -24,8 +24,8 @@ class _IntermediateExerciseState extends State<IntermediateExercise> {
     // Get a random phrase
     final List<Map<String, dynamic>> maps;
     if (avoidCompleted == true) {
-      maps = await db
-          .query('phrases', where: 'completed = ?', whereArgs: [moduleId]);
+      maps = await db.query('phrases',
+          where: 'module_id = ? and completed = 0', whereArgs: [moduleId]);
     } else {
       maps = await db.query('phrases');
     }
