@@ -62,8 +62,8 @@ var profile = CustomPage(
             // Get module progress
             final List<double> moduleProgress = [
               snapshot.data['module1'],
-              0.5,
-              1,
+              snapshot.data['module2'],
+              snapshot.data['module3'],
             ];
 
             // Get completed phrases

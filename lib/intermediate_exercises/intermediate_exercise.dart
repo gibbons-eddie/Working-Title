@@ -20,17 +20,18 @@ class IntermediateExercise extends StatefulWidget {
 
 class _IntermediateExerciseState extends State<IntermediateExercise> {
   Future<Phrase> _getPhrase(Database db, int moduleId,
-      {avoidCompleted = true}) async {
+      {avoidCompleted = false}) async {
     // Get a random phrase
     final List<Map<String, dynamic>> maps;
-    if (avoidCompleted == false) {
+    if (avoidCompleted) {
       maps = await db.query(
         'phrases',
-        where: 'module_id = ? and completed = ?',
-        whereArgs: [moduleId, avoidCompleted ? '0' : '1'],
+        where: 'module_id = ? and completed = 0',
+        whereArgs: [moduleId],
       );
     } else {
-      maps = await db.query('phrases');
+      maps = await db
+          .query('phrases', where: 'module_id = ?', whereArgs: [moduleId]);
     }
     final map = maps[Random().nextInt(maps.length)];
 
