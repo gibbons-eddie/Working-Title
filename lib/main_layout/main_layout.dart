@@ -14,7 +14,7 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0; // keep track of which page we're on
-  final List<CustomPage> _pages = [quickchat, modules, profile, settings];
+  final List<CustomPage> _pages = [modules, profile, settings];
 
   void setCurrentIndex(int _newIndex) {
     setState(() {
