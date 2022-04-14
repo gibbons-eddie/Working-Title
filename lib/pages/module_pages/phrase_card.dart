@@ -79,17 +79,18 @@ class PhraseCard extends StatelessWidget {
                 child: TextField(
                   controller: myTextController, // gives error for some reason
                   autofocus: true,
-                  onChanged: (String inputValue) {
+                  onChanged: (inputValue) {
                     // if (inputValue.isEmpty) {
                     //  currentText = "empty";
                     //} else {
                     //  currentText = "not empty";
                     //}
-                    currentText = inputValue;
+                    currentText = inputValue.toString();
                     //myTextController.text = inputValue;
                     //var chr = str[0];
                     //str = str.substring(1) + chr;
                     //myTextController.text = str;
+                    print(currentText);
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -108,10 +109,10 @@ class PhraseCard extends StatelessWidget {
           }, // needs to play audio file
           child: Text('Submit'),
         ),
-        //Text(
-        //  currentText,
-        //  style: TextStyle(fontSize: 20),
-        // ),
+        Text(
+          currentText,
+          style: TextStyle(fontSize: 20),
+        ),
       ],
     )));
   }
