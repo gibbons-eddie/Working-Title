@@ -4,21 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../modules.dart';
+import 'package:senior_project/pages/module_pages/post_operation_page.dart';
 import 'package:senior_project/pages/module_pages/phrase_card.dart';
 
-Future<List<Map>> getData() async {
-  Database db = await getDatabase();
-  return await db.rawQuery('SELECT * FROM phrases_table');
-}
+import 'package:senior_project/models/phrase.dart';
 
-class PostAdvancedPage extends StatelessWidget {
-  const PostAdvancedPage({Key? key}) : super(key: key);
+class PostAdvancedPage extends StatefulWidget {
+  final String diff = 'Advanced';
+  final String currentModule = PostOperationPage().module;
+  int index = 0;
+  // static List<Phrase> list2;
+
+  Future<List<Map>> getData() async {
+    Database db = await getDatabase();
+    return await db.rawQuery('SELECT * FROM phrases_table WHERE module_name = ?',
+      [currentModule]);
+  }
+  
+  PostAdvancedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Advanced"),
+        title: Text(diff),
         backgroundColor: Colors.green,
       ),
       body: FutureBuilder(
@@ -26,8 +35,9 @@ class PostAdvancedPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return PhraseCard(
-              phrase: (snapshot.data as List<Map>)[2]['phrase'], // hardcoded for now for testing
-              type: (snapshot.data as List<Map>)[2]['type'],
+              phrase: (snapshot.data as List<Map>)[index]['phrase'], // hardcoded for now for testing
+              type: (snapshot.data as List<Map>)[index]['type'],
+              currentIndex: index,
             );
           }
           if (snapshot.hasError) {
@@ -38,5 +48,11 @@ class PostAdvancedPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }

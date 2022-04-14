@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/pages/difficulty_pages/post_advanced.dart';
 
 class PostOperationPage extends StatelessWidget {
-  const PostOperationPage({Key? key}) : super(key: key);
+  final String module = 'Post-Operation';
+  
+  PostOperationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Post Operation Page'),
+        title: Text(module),
         backgroundColor: Colors.green,
       ),
       body: Center(
@@ -30,7 +32,7 @@ class PostOperationPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const PostAdvancedPage()),
+                  builder: (context) => PostAdvancedPage()),
                 );
               }, child: Text("Advanced"),
             ),
