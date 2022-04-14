@@ -40,7 +40,7 @@ class PhraseCard extends StatelessWidget {
     // print(list2);
 
     // if (type == '')
-    
+
     print(list[0].values.toString());
     print(list);
 
@@ -78,7 +78,7 @@ class PhraseCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 child: TextField(
                   controller: myTextController, // gives error for some reason
-                  onChanged: (v) => myTextController.text = v,
+                  //onChanged: (v) => myTextController.text = v,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter a search term',
