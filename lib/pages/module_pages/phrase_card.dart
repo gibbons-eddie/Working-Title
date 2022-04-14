@@ -78,7 +78,19 @@ class PhraseCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 child: TextField(
                   controller: myTextController, // gives error for some reason
-                  //onChanged: (v) => myTextController.text = v,
+                  autofocus: true,
+                  onChanged: (String inputValue) {
+                    // if (inputValue.isEmpty) {
+                    //  currentText = "empty";
+                    //} else {
+                    //  currentText = "not empty";
+                    //}
+                    currentText = inputValue;
+                    //myTextController.text = inputValue;
+                    //var chr = str[0];
+                    //str = str.substring(1) + chr;
+                    //myTextController.text = str;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter a search term',
@@ -94,8 +106,12 @@ class PhraseCard extends StatelessWidget {
           onPressed: () async {
             // await playLocalAsset();
           }, // needs to play audio file
-          child: const Text('Submit'),
+          child: Text('Submit'),
         ),
+        //Text(
+        //  currentText,
+        //  style: TextStyle(fontSize: 20),
+        // ),
       ],
     )));
   }
