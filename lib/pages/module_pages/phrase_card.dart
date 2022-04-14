@@ -35,10 +35,16 @@ class PhraseCard extends StatelessWidget {
         mod.add("module3/");
       }
     }
+
+    // var list2 = await db.query('phrases_table', columns: ['audio_file_name']);
+    // print(list2);
+
+    // if (type == '')
+    
     print(list[0].values.toString());
     print(list);
 
-    print(mod[0]);
+    // print(list2);
 
     AudioCache cache = new AudioCache();
 
