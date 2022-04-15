@@ -36,8 +36,13 @@ class _PostAdvancedState extends State<PostAdvancedPage> {
   void setCurrentIndex(int _newIndex) {
     setState(() {
       _currentIndex = _newIndex;
-      _currentPhrase = "";
-      _currentType = "";
+    });
+  }
+
+  void setPhrase(String _newPhrase, String _newType) {
+    setState(() {
+      _currentPhrase = _newPhrase;
+      _currentType = _newType;
     });
   }
 
@@ -52,7 +57,9 @@ class _PostAdvancedState extends State<PostAdvancedPage> {
               phrase: _currentPhrase,
               type: _currentType,
               currentIndex: _currentIndex,
-            ),
+              setPhrase: setPhrase,
+              setCurrentIndex: setCurrentIndex,
+      ),
     );
   }
 }

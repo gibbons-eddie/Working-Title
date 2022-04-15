@@ -13,25 +13,32 @@ import 'package:senior_project/pages/difficulty_pages/post_advanced.dart';
 
 import 'package:senior_project/models/phrase.dart';
 
-class PhraseCard extends StatelessWidget {
+class PhraseCard extends StatefulWidget {
   String phrase;
   String type;
   int currentIndex;
+  void Function(String, String) setPhrase;
+  void Function(int) setCurrentIndex;
   // var list = phrases();
-  TextEditingController myTextController = TextEditingController();
-
-  String currentText = "";
-
-  final String currentModule = PostOperationPage().module;
-  final String currentDiff = PostAdvancedPage().diff;
   // List<Phrase> list2 = list2;
 
-  PhraseCard({Key? key, required this.phrase, required this.type, required this.currentIndex})
+  PhraseCard({Key? key, required this.phrase, required this.type, required this.currentIndex, required this.setPhrase, required this.setCurrentIndex})
       : super(key: key);
+
+  @override
+  State<PhraseCard> createState() => _PhraseCardState();
+}
+
+class _PhraseCardState extends State<PhraseCard> {
+  final String currentModule = PostOperationPage().module;
+  final String currentDiff = PostAdvancedPage().diff;
+
+  TextEditingController myTextController = TextEditingController();
+  String currentText = "";
 
   Future<List<Phrase>> phrases() async {
     final db = await getDatabase();
-
+  
     final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * FROM phrases_table WHERE module_name = ?',
       [currentModule]);
 
@@ -61,127 +68,144 @@ class PhraseCard extends StatelessWidget {
     return await cache.play("recordings/" + "module3/" + "phrase01.mp3");
   }
 
-  onForward() {
-    if (currentIndex < 2) {
-      currentIndex += 1;
+  onForward(List<Phrase> tempList) {
+    if (widget.currentIndex < 2) {
+      widget.setCurrentIndex(widget.currentIndex + 1);
+      widget.setPhrase(tempList[widget.currentIndex + 1].phrase, tempList[widget.currentIndex + 1].type);
     }
-    getPhraseInfo(currentIndex);
+    
   }
 
-  onBack() {
-    if (currentIndex != 0) {
-      currentIndex -= 1;
+  onBack(List<Phrase> tempList) {
+    if (widget.currentIndex != 0) {
+      widget.setCurrentIndex(widget.currentIndex - 1);
+      widget.setPhrase(tempList[widget.currentIndex - 1].phrase, tempList[widget.currentIndex - 1].type);
     }
-    getPhraseInfo(currentIndex);
   }
 
-  void getPhraseInfo(int index) async { // prints correct info as you page through the phrases
-    var tempList = await phrases();
-    var phraseType = tempList[currentIndex].type;
-    type = phraseType;
-    var phraseAudio = tempList[currentIndex].audioFileName;
-    var phraseName = tempList[currentIndex].phrase;
-    phrase = phraseName;
-    print(currentIndex);
-    print(phrase);
-    print(type);
+  void getPhraseInfo(int index, List<Phrase> tempData) { // prints correct info as you page through the phrases
+    var tempList = tempData;
+    var phraseType = tempList[widget.currentIndex].type;
+
+    var phraseAudio = tempList[widget.currentIndex].audioFileName;
+    var phraseName = tempList[widget.currentIndex].phrase;
+
+    widget.setPhrase(phraseName, phraseType);
+
+    print(widget.currentIndex);
+    print(widget.phrase);
+    print(widget.type);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Card(
-            child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        ListTile(
-          leading: const Icon(Icons.album),
-          title: Text(phrase), 
-          subtitle: Text(currentIndex.toString()), // still just shows '0'
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            TextButton(
-              onPressed: () async {
-                await playLocalAsset();
-              }, // needs to play audio file
-              child: const Text('Play'),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                child: TextField(
-                  controller: myTextController, // gives error for some reason
-                  autofocus: true,
-                  onChanged: (inputValue) {
-                    // if (inputValue.isEmpty) {
-                    //  currentText = "empty";
-                    //} else {
-                    //  currentText = "not empty";
-                    //}
-                    currentText = inputValue.toString();
-                    //myTextController.text = inputValue;
-                    //var chr = str[0];
-                    //str = str.substring(1) + chr;
-                    //myTextController.text = str;
-                    print(currentText);
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+    return FutureBuilder<List<Phrase>>(
+      future: phrases(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Center(
+          child: Card(
+              child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: const Icon(Icons.album),
+            title: Text(widget.phrase), 
+            subtitle: Text(widget.currentIndex.toString()), // still just shows '0'
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  await playLocalAsset();
+                }, // needs to play audio file
+                child: const Text('Play'),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  child: TextField(
+                    controller: myTextController, // gives error for some reason
+                    autofocus: true,
+                    onChanged: (inputValue) {
+                      // if (inputValue.isEmpty) {
+                      //  currentText = "empty";
+                      //} else {
+                      //  currentText = "not empty";
+                      //}
+                      currentText = inputValue.toString();
+                      //myTextController.text = inputValue;
+                      //var chr = str[0];
+                      //str = str.substring(1) + chr;
+                      //myTextController.text = str;
+                      print(currentText);
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter a search term',
+                    ),
+    
+                    style: TextStyle(fontSize: 16),
                   ),
-
-                  style: TextStyle(fontSize: 16),
                 ),
               ),
-            ),
-          ],
-        ),
-        TextButton(
-          onPressed: () async {
-            // 
-          },
-          child: Text('Submit'),
-        ),
-        Text(
-          currentText,
-          style: TextStyle(fontSize: 20),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          
-          children: [
-            Ink(
-            decoration: const ShapeDecoration(
-              shape: CircleBorder(),
-              color: Colors.lightBlue,
-            ),
-            padding: EdgeInsets.only(right: 20),
-            child: IconButton(
-              onPressed: () {onBack();},
-              icon: const Icon(Icons.arrow_back_ios_outlined),
-              color: Colors.white,
-              padding: EdgeInsets.only(left: 20),
-              ),
-            ),
-            Ink(
+            ],
+          ),
+          TextButton(
+            onPressed: () async {
+              // 
+            },
+            child: Text('Submit'),
+          ),
+          Text(
+            currentText,
+            style: TextStyle(fontSize: 20),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            
+            children: [
+              Ink(
               decoration: const ShapeDecoration(
                 shape: CircleBorder(),
                 color: Colors.lightBlue,
               ),
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(right: 20),
               child: IconButton(
-                onPressed: () {onForward();},
-                icon: const Icon(Icons.arrow_forward_ios_outlined),
+                onPressed: () {onBack(snapshot.data ?? []);},
+                icon: const Icon(Icons.arrow_back_ios_outlined),
                 color: Colors.white,
-                padding: EdgeInsets.only(right: 20),
+                padding: EdgeInsets.only(left: 20),
                 ),
-            ),
-          ],
-        )
-      ],
-    )));
+              ),
+              Ink(
+                decoration: const ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: Colors.lightBlue,
+                ),
+                padding: EdgeInsets.only(left: 20),
+                child: IconButton(
+                  onPressed: () {onForward(snapshot.data ?? []);},
+                  icon: const Icon(Icons.arrow_forward_ios_outlined),
+                  color: Colors.white,
+                  padding: EdgeInsets.only(right: 20),
+                  ),
+              ),
+            ],
+          )
+        ],
+      )
+      )
+      );
+      }
+      else if (snapshot.hasError) {
+      print("ERROR");
+        return Text('Error: ${snapshot.error}');
+      }
+      return const CircularProgressIndicator();
+      },
+    );
   }
 }
