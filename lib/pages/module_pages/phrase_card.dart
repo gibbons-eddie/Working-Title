@@ -22,7 +22,13 @@ class PhraseCard extends StatefulWidget {
   // var list = phrases();
   // List<Phrase> list2 = list2;
 
-  PhraseCard({Key? key, required this.phrase, required this.type, required this.currentIndex, required this.setPhrase, required this.setCurrentIndex})
+  PhraseCard(
+      {Key? key,
+      required this.phrase,
+      required this.type,
+      required this.currentIndex,
+      required this.setPhrase,
+      required this.setCurrentIndex})
       : super(key: key);
 
   @override
@@ -38,9 +44,9 @@ class _PhraseCardState extends State<PhraseCard> {
 
   Future<List<Phrase>> phrases() async {
     final db = await getDatabase();
-  
-    final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * FROM phrases_table WHERE module_name = ?',
-      [currentModule]);
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * FROM phrases_table WHERE module_name = ?', [currentModule]);
 
     return List.generate(maps.length, (i) {
       return Phrase(
@@ -71,19 +77,21 @@ class _PhraseCardState extends State<PhraseCard> {
   onForward(List<Phrase> tempList) {
     if (widget.currentIndex < 2) {
       widget.setCurrentIndex(widget.currentIndex + 1);
-      widget.setPhrase(tempList[widget.currentIndex + 1].phrase, tempList[widget.currentIndex + 1].type);
+      widget.setPhrase(tempList[widget.currentIndex + 1].phrase,
+          tempList[widget.currentIndex + 1].type);
     }
-    
   }
 
   onBack(List<Phrase> tempList) {
     if (widget.currentIndex != 0) {
       widget.setCurrentIndex(widget.currentIndex - 1);
-      widget.setPhrase(tempList[widget.currentIndex - 1].phrase, tempList[widget.currentIndex - 1].type);
+      widget.setPhrase(tempList[widget.currentIndex - 1].phrase,
+          tempList[widget.currentIndex - 1].type);
     }
   }
 
-  void getPhraseInfo(int index, List<Phrase> tempData) { // prints correct info as you page through the phrases
+  void getPhraseInfo(int index, List<Phrase> tempData) {
+    // prints correct info as you page through the phrases
     var tempList = tempData;
     var phraseType = tempList[widget.currentIndex].type;
 
@@ -104,107 +112,142 @@ class _PhraseCardState extends State<PhraseCard> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Center(
-          child: Card(
-              child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.album),
-            title: Text(widget.phrase), 
-            subtitle: Text(widget.currentIndex.toString()), // still just shows '0'
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+              child: Card(
+                  child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.album),
+                title: Text(widget.phrase),
+                subtitle: Text(
+                    widget.currentIndex.toString()), // still just shows '0'
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () async {
+                      await playLocalAsset();
+                    }, // needs to play audio file
+                    child: const Text('Play'),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4, vertical: 8),
+                      child: TextField(
+                        controller:
+                            myTextController, // gives error for some reason
+                        autofocus: true,
+                        onChanged: (inputValue) {
+                          // if (inputValue.isEmpty) {
+                          //  currentText = "empty";
+                          //} else {
+                          //  currentText = "not empty";
+                          //}
+                          currentText = inputValue.toString();
+                          //myTextController.text = inputValue;
+                          //var chr = str[0];
+                          //str = str.substring(1) + chr;
+                          //myTextController.text = str;
+                          //print(currentText);
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter a search term',
+                        ),
+
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               TextButton(
                 onPressed: () async {
-                  await playLocalAsset();
-                }, // needs to play audio file
-                child: const Text('Play'),
+                  if (currentText == widget.phrase) {
+                    print("matched");
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Matched',
+                            style:
+                                TextStyle(color: Colors.green, fontSize: 25)),
+                        content: const Text(
+                            'Your input matches the phrase your are hearing.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    print("not match");
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Not Match',
+                            style: TextStyle(color: Colors.red, fontSize: 25)),
+                        content: const Text(
+                            'Your input dose not matche the phrase your are hearing.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  //
+                },
+                child: Text('Submit'),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                  child: TextField(
-                    controller: myTextController, // gives error for some reason
-                    autofocus: true,
-                    onChanged: (inputValue) {
-                      // if (inputValue.isEmpty) {
-                      //  currentText = "empty";
-                      //} else {
-                      //  currentText = "not empty";
-                      //}
-                      currentText = inputValue.toString();
-                      //myTextController.text = inputValue;
-                      //var chr = str[0];
-                      //str = str.substring(1) + chr;
-                      //myTextController.text = str;
-                      print(currentText);
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter a search term',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Ink(
+                    decoration: const ShapeDecoration(
+                      shape: CircleBorder(),
+                      color: Colors.lightBlue,
                     ),
-    
-                    style: TextStyle(fontSize: 16),
+                    padding: EdgeInsets.only(right: 20),
+                    child: IconButton(
+                      onPressed: () {
+                        onBack(snapshot.data ?? []);
+                      },
+                      icon: const Icon(Icons.arrow_back_ios_outlined),
+                      color: Colors.white,
+                      padding: EdgeInsets.only(left: 20),
+                    ),
                   ),
-                ),
-              ),
-            ],
-          ),
-          TextButton(
-            onPressed: () async {
-              // 
-            },
-            child: Text('Submit'),
-          ),
-          Text(
-            currentText,
-            style: TextStyle(fontSize: 20),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            
-            children: [
-              Ink(
-              decoration: const ShapeDecoration(
-                shape: CircleBorder(),
-                color: Colors.lightBlue,
-              ),
-              padding: EdgeInsets.only(right: 20),
-              child: IconButton(
-                onPressed: () {onBack(snapshot.data ?? []);},
-                icon: const Icon(Icons.arrow_back_ios_outlined),
-                color: Colors.white,
-                padding: EdgeInsets.only(left: 20),
-                ),
-              ),
-              Ink(
-                decoration: const ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: Colors.lightBlue,
-                ),
-                padding: EdgeInsets.only(left: 20),
-                child: IconButton(
-                  onPressed: () {onForward(snapshot.data ?? []);},
-                  icon: const Icon(Icons.arrow_forward_ios_outlined),
-                  color: Colors.white,
-                  padding: EdgeInsets.only(right: 20),
+                  Ink(
+                    decoration: const ShapeDecoration(
+                      shape: CircleBorder(),
+                      color: Colors.lightBlue,
+                    ),
+                    padding: EdgeInsets.only(left: 20),
+                    child: IconButton(
+                      onPressed: () {
+                        onForward(snapshot.data ?? []);
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios_outlined),
+                      color: Colors.white,
+                      padding: EdgeInsets.only(right: 20),
+                    ),
                   ),
-              ),
+                ],
+              )
             ],
-          )
-        ],
-      )
-      )
-      );
-      }
-      else if (snapshot.hasError) {
-      print("ERROR");
-        return Text('Error: ${snapshot.error}');
-      }
-      return const CircularProgressIndicator();
+          )));
+        } else if (snapshot.hasError) {
+          print("ERROR");
+          return Text('Error: ${snapshot.error}');
+        }
+        return const CircularProgressIndicator();
       },
     );
   }
