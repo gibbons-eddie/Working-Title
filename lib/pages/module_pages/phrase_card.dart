@@ -62,27 +62,29 @@ class PhraseCard extends StatelessWidget {
   }
 
   onForward() {
-    if (PostAdvancedPage().index < 2) {
-      PostAdvancedPage().index += 1;
+    if (currentIndex < 2) {
+      currentIndex += 1;
     }
-    getPhraseInfo(PostAdvancedPage().index);
+    getPhraseInfo(currentIndex);
   }
 
   onBack() {
-    if (PostAdvancedPage().index != 0) {
-      PostAdvancedPage().index -= 1;
+    if (currentIndex != 0) {
+      currentIndex -= 1;
     }
-    getPhraseInfo(PostAdvancedPage().index);
+    getPhraseInfo(currentIndex);
   }
 
-  void getPhraseInfo(int index) async {
+  void getPhraseInfo(int index) async { // prints correct info as you page through the phrases
     var tempList = await phrases();
-    var phraseType = tempList[PostAdvancedPage().index].type;
+    var phraseType = tempList[currentIndex].type;
     type = phraseType;
-    var phraseAudio = tempList[PostAdvancedPage().index].audioFileName;
-    var phraseName = tempList[PostAdvancedPage().index].phrase;
+    var phraseAudio = tempList[currentIndex].audioFileName;
+    var phraseName = tempList[currentIndex].phrase;
     phrase = phraseName;
-    print(PostAdvancedPage().index);
+    print(currentIndex);
+    print(phrase);
+    print(type);
   }
 
   @override
@@ -94,8 +96,8 @@ class PhraseCard extends StatelessWidget {
       children: <Widget>[
         ListTile(
           leading: const Icon(Icons.album),
-          title: Text(phrase), // used to show phrase
-          subtitle: Text(type),
+          title: Text(phrase), 
+          subtitle: Text(currentIndex.toString()), // still just shows '0'
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

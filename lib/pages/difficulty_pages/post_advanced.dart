@@ -11,48 +11,48 @@ import 'package:senior_project/models/phrase.dart';
 
 class PostAdvancedPage extends StatefulWidget {
   final String diff = 'Advanced';
-  final String currentModule = PostOperationPage().module;
-  int index = 0;
+  // int index = 0;
   // static List<Phrase> list2;
+  
+  PostAdvancedPage({Key? key}) : super(key: key);
+
+  @override
+  State<PostAdvancedPage> createState() => _PostAdvancedState();
+}
+
+class _PostAdvancedState extends State<PostAdvancedPage> {
+  int _currentIndex = 0;
+  String _currentPhrase = "";
+  String _currentType = "";
+
+  final String currentModule = PostOperationPage().module;
 
   Future<List<Map>> getData() async {
     Database db = await getDatabase();
     return await db.rawQuery('SELECT * FROM phrases_table WHERE module_name = ?',
       [currentModule]);
   }
-  
-  PostAdvancedPage({Key? key}) : super(key: key);
+
+  void setCurrentIndex(int _newIndex) {
+    setState(() {
+      _currentIndex = _newIndex;
+      _currentPhrase = "";
+      _currentType = "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(diff),
+        title: Text(PostAdvancedPage().diff),
         backgroundColor: Colors.green,
       ),
-      body: FutureBuilder(
-        future: getData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return PhraseCard(
-              phrase: (snapshot.data as List<Map>)[index]['phrase'], // hardcoded for now for testing
-              type: (snapshot.data as List<Map>)[index]['type'],
-              currentIndex: index,
-            );
-          }
-          if (snapshot.hasError) {
-            print("ERROR");
-            return Text('Error: ${snapshot.error}');
-          }
-          return const CircularProgressIndicator();
-        },
-      ),
+      body: PhraseCard( // where the info needs to be updated
+              phrase: _currentPhrase,
+              type: _currentType,
+              currentIndex: _currentIndex,
+            ),
     );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
