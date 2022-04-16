@@ -24,6 +24,7 @@ class _PostAdvancedState extends State<PostAdvancedPage> {
   int _currentIndex = 0;
   String _currentPhrase = "";
   String _currentType = "";
+  String _currentAudioFileName = "";
 
   final String currentModule = PostOperationPage().module;
 
@@ -39,10 +40,11 @@ class _PostAdvancedState extends State<PostAdvancedPage> {
     });
   }
 
-  void setPhrase(String _newPhrase, String _newType) {
+  void setPhrase(String _newPhrase, String _newType, String _newAudioFileName) {
     setState(() {
       _currentPhrase = _newPhrase;
       _currentType = _newType;
+      _currentAudioFileName = _newAudioFileName;
     });
   }
 
@@ -56,6 +58,7 @@ class _PostAdvancedState extends State<PostAdvancedPage> {
       body: PhraseCard( // where the info needs to be updated
               phrase: _currentPhrase,
               type: _currentType,
+              audioFileName: _currentAudioFileName,
               currentIndex: _currentIndex,
               setPhrase: setPhrase,
               setCurrentIndex: setCurrentIndex,

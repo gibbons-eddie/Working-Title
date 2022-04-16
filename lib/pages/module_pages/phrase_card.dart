@@ -16,8 +16,9 @@ import 'package:senior_project/models/phrase.dart';
 class PhraseCard extends StatefulWidget {
   String phrase;
   String type;
+  String audioFileName;
   int currentIndex;
-  void Function(String, String) setPhrase;
+  void Function(String, String, String) setPhrase;
   void Function(int) setCurrentIndex;
   // var list = phrases();
   // List<Phrase> list2 = list2;
@@ -26,6 +27,7 @@ class PhraseCard extends StatefulWidget {
       {Key? key,
       required this.phrase,
       required this.type,
+      required this.audioFileName,
       required this.currentIndex,
       required this.setPhrase,
       required this.setCurrentIndex})
@@ -61,24 +63,35 @@ class _PhraseCardState extends State<PhraseCard> {
   }
 
   Future<AudioPlayer> playLocalAsset() async {
-    // Database db = await getDatabase();
-    // print(list2[currentIndex].phrase);
-
-    // print(list2.length);
-
     print(currentModule);
     print(currentDiff);
 
+    String modFolder = "";
+
+    if (currentModule == 'Pre-Operation')
+    {
+      modFolder = "module1/";
+    }
+    else if (currentModule == 'During Operation')
+    {
+      modFolder = "module2/";
+    }
+    else if (currentModule == 'Post-Operation')
+    {
+      modFolder = "module3/";
+    }
+
     AudioCache cache = new AudioCache();
 
-    return await cache.play("recordings/" + "module3/" + "phrase01.mp3");
+    return await cache.play('recordings/' + 'module3/' + widget.audioFileName);
   }
 
   onForward(List<Phrase> tempList) {
     if (widget.currentIndex < 2) {
       widget.setCurrentIndex(widget.currentIndex + 1);
       widget.setPhrase(tempList[widget.currentIndex + 1].phrase,
-          tempList[widget.currentIndex + 1].type);
+          tempList[widget.currentIndex + 1].type,
+          tempList[widget.currentIndex + 1].audioFileName);
     }
   }
 
@@ -86,23 +99,9 @@ class _PhraseCardState extends State<PhraseCard> {
     if (widget.currentIndex != 0) {
       widget.setCurrentIndex(widget.currentIndex - 1);
       widget.setPhrase(tempList[widget.currentIndex - 1].phrase,
-          tempList[widget.currentIndex - 1].type);
+          tempList[widget.currentIndex - 1].type,
+          tempList[widget.currentIndex - 1].audioFileName);
     }
-  }
-
-  void getPhraseInfo(int index, List<Phrase> tempData) {
-    // prints correct info as you page through the phrases
-    var tempList = tempData;
-    var phraseType = tempList[widget.currentIndex].type;
-
-    var phraseAudio = tempList[widget.currentIndex].audioFileName;
-    var phraseName = tempList[widget.currentIndex].phrase;
-
-    widget.setPhrase(phraseName, phraseType);
-
-    print(widget.currentIndex);
-    print(widget.phrase);
-    print(widget.type);
   }
 
   @override
@@ -118,10 +117,9 @@ class _PhraseCardState extends State<PhraseCard> {
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.album),
-                title: Text(widget.phrase),
-                subtitle: Text(
-                    widget.currentIndex.toString()), // still just shows '0'
-              ),
+                title: Text("What is this phrase?"),
+                subtitle: Text(widget.type)
+                ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
