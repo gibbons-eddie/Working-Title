@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../modules.dart';
 import 'package:senior_project/pages/module_pages/post_operation_page.dart';
-import 'package:senior_project/pages/module_pages/phrase_card.dart';
+import 'package:senior_project/pages/advanced_pages/phrase_cards/post_phrase_card.dart';
 
 import 'package:senior_project/models/phrase.dart';
 
@@ -55,7 +55,7 @@ class _PostAdvancedState extends State<PostAdvancedPage> {
         title: Text(PostAdvancedPage().diff),
         backgroundColor: Colors.green,
       ),
-      body: PhraseCard( // where the info needs to be updated
+      body: PostPhraseCard( // where the info needs to be updated
               phrase: _currentPhrase,
               type: _currentType,
               audioFileName: _currentAudioFileName,

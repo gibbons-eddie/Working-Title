@@ -7,13 +7,13 @@ import 'package:flutter/services.dart';
 
 import 'package:sqflite/sqflite.dart';
 
-import '../modules.dart';
+import '../../modules.dart';
 import 'package:senior_project/pages/module_pages/post_operation_page.dart';
-import 'package:senior_project/pages/difficulty_pages/post_advanced.dart';
+import 'package:senior_project/pages/advanced_pages/post_advanced.dart';
 
 import 'package:senior_project/models/phrase.dart';
 
-class PhraseCard extends StatefulWidget {
+class PostPhraseCard extends StatefulWidget {
   String phrase;
   String type;
   String audioFileName;
@@ -23,7 +23,7 @@ class PhraseCard extends StatefulWidget {
   // var list = phrases();
   // List<Phrase> list2 = list2;
 
-  PhraseCard(
+  PostPhraseCard(
       {Key? key,
       required this.phrase,
       required this.type,
@@ -34,10 +34,10 @@ class PhraseCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<PhraseCard> createState() => _PhraseCardState();
+  State<PostPhraseCard> createState() => _PostPhraseCardState();
 }
 
-class _PhraseCardState extends State<PhraseCard> {
+class _PostPhraseCardState extends State<PostPhraseCard> {
   final String currentModule = PostOperationPage().module;
   final String currentDiff = PostAdvancedPage().diff;
 
@@ -83,7 +83,7 @@ class _PhraseCardState extends State<PhraseCard> {
 
     AudioCache cache = new AudioCache();
 
-    return await cache.play('recordings/' + 'module3/' + widget.audioFileName);
+    return await cache.play('recordings/' + modFolder + widget.audioFileName);
   }
 
   onForward(List<Phrase> tempList) {

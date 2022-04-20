@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:senior_project/pages/difficulty_pages/post_advanced.dart';
+import 'package:senior_project/pages/advanced_pages/post_advanced.dart';
 
 class PostOperationPage extends StatelessWidget {
   final String module = 'Post-Operation';
