@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:senior_project/theme.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
 
 class FlashCardsBeginnerPost extends StatelessWidget {
   const FlashCardsBeginnerPost({Key? key}) : super(key: key);
@@ -25,7 +27,16 @@ class FlashCardsBeginnerPost extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('painkiller', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Column(
+                    children:[
+                      Text('painkiller', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                      Image(
+                        width: 150,
+                        height: 150,
+                        image: AssetImage("images/module3/vocab1.jpg"),
+                      )
+                    ],
+                  ),
                   color: CustomColors.lightGreen
               ),
               back: Container(
@@ -33,7 +44,7 @@ class FlashCardsBeginnerPost extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('ยาแก้ปวด', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('ยาแก้ปวด\n\n\"Would you like painkillers?\"', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20),),
                   color: CustomColors.lightPurple
               ),
             ), //painkiller
@@ -45,7 +56,16 @@ class FlashCardsBeginnerPost extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('side effect', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Column(
+                    children:[
+                      Text('side effect', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                      Image(
+                        width: 150,
+                        height: 148,
+                        image: AssetImage("images/module3/vocab2.jpg"),
+                      )
+                    ],
+                  ),
                   color: CustomColors.lightGreen
               ),
               back: Container(
@@ -53,7 +73,7 @@ class FlashCardsBeginnerPost extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('ผลข้างเคียง, อาการหลังผ่าตัด', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('ผลข้างเคียง, อาการหลังผ่าตัด\n\n\"This medicine\'s side effects may make you feel sleepy.\"', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20),),
                   color: CustomColors.lightPurple
               ),
             ), //side effect
@@ -65,7 +85,16 @@ class FlashCardsBeginnerPost extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('symptom', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Column(
+                    children:[
+                      Text('symptoms', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                      Image(
+                        width: 150,
+                        height: 148,
+                        image: AssetImage("images/module3/vocab3.jpg"),
+                      )
+                    ],
+                  ),
                   color: CustomColors.lightGreen
               ),
               back: Container(
@@ -73,7 +102,7 @@ class FlashCardsBeginnerPost extends StatelessWidget {
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
-                  child: Text('อาการ, อาการก่อนผ่าตัด', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
+                  child: Text('อาการ, อาการก่อนผ่าตัด\n\n\"A high fever is a symptom of COVID-19\"', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20),),
                   color: CustomColors.lightPurple
               ),
             ), //symptom

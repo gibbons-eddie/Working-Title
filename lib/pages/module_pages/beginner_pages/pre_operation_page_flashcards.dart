@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:senior_project/theme.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
+
+String pathAudio = 'recordings/module1/';
 
 class FlashCardsBeginnerPre extends StatelessWidget {
   const FlashCardsBeginnerPre({Key? key}) : super(key: key);
+  final bool isPlaying = false;
+ // final AudioPlayer _audioPlayer;
 
   @override
+  // void initState() {
+  //   setAudio();
+  //   audioPlayer.onPlayerStateChanged.listen((state){
+  //     setState(() {
+  //       isPlaying = state == PlayerState.PLAYING;
+  //     });
+  //   });
+  // }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.darkPurple,
@@ -15,19 +30,19 @@ class FlashCardsBeginnerPre extends StatelessWidget {
       ),
       body: Center(
         child: GridView.count(
-          crossAxisCount: 1,
+          crossAxisCount: 4,
           children: <FlipCard>[
             FlipCard(
               fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
                 direction: FlipDirection.HORIZONTAL, // default
-                front: Container(
+              front: Container(
                   margin: EdgeInsets.all(25),
                   width: 200,
                   height: 150,
                   padding: EdgeInsets.all(10.0),
                   child: Text('pain', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 30),),
                   color: CustomColors.lightGreen
-                ),
+              ),
                 back: Container(
                   margin: EdgeInsets.all(25),
                   width: 200,
@@ -463,4 +478,47 @@ class FlashCardsBeginnerPre extends StatelessWidget {
       ),
     );
   }
-}
+
+//   Future setAudio() async {
+//     final player = AudioCache(prefix: 'assets/');
+//     final url = await player.load(pathAudio + 'vocab1.mp3');
+//     audioPlayer.setUrl(url.path, isLocal: true);
+//
+//   }
+// }
+
+// class SoundPlayer {
+//   FlutterSoundPlayer? _audioPlayer;
+//
+//   Future init() async {
+//     _audioPlayer = FlutterSoundPlayer();
+//     await _audioPlayer!.openAudioSession();
+//   }
+//
+//   void dispose() async {
+//     _audioPlayer!.closeAudioSession();
+//     _audioPlayer = null;
+//   }
+//
+//   Future _play(VoidCallback whenFinished) async {
+//     await _audioPlayer!.startPlayer(
+//       fromURI: pathAudio,
+//       whenFinished: whenFinished,
+//     );
+//   }
+//
+//   Future _stop() async {
+//     await _audioPlayer!.stopPlayer();
+//   }
+//
+//   Future togglePlaying(VoidCallback whenFinished) async {
+//     if (_audioPlayer!.isStopped){
+//       await _play(whenFinished);
+//     } else {
+//       await _stop();
+//     }
+//   }
+//
+//   bool get isPlaying => _audioPlayer!.isPlaying;
+//
+ }

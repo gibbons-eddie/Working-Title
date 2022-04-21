@@ -41,6 +41,8 @@ dependencies:
   path: ^1.8.0
   percent_indicator: ^4.0.0
   flip_card: ^0.6.0
+  audioplayers: ^0.20.1
+  flutter_sound_lite: ^8.5.0
 
 dev_dependencies:
   flutter_test:
