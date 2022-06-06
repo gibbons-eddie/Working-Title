@@ -17,7 +17,7 @@ class FlashCardsBeginnerPost extends StatelessWidget {
       ),
       body: Center(
         child: GridView.count(
-          crossAxisCount: 1,
+          crossAxisCount: 4,
           children: <FlipCard>[
             FlipCard(
               fill: Fill.fillBack, // Fill the back side of the card to make in the same size as the front.
