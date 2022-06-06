@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/pages/module_pages/beginner_pages/post_operation_page_beginner.dart';
 
 import 'package:senior_project/pages/advanced_pages/post_advanced.dart';
 
@@ -19,7 +20,11 @@ class PostOperationPage extends StatelessWidget {
           children: [
             ElevatedButton(
             onPressed: () {
-              // Navigator.pop(context); // to go to previous widget in tree (in this case, modules page)
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PostOperationBeginner()),
+              );
               }, child: Text("Beginner"),
             ),
             ElevatedButton(

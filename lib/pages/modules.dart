@@ -58,32 +58,66 @@ class ModulesPageChild extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ElevatedButton(
-              child: Text('Pre Operation'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PreOperationPage()),
-                );
-              }),
+              child: Container(
+                  width:100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image:AssetImage("assets/images/Module1.png"),
+                      ),
+                  )
+              ),onPressed:(){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const PreOperationPage()),
+            );
+          }),
+          Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Text("Pre Operation", style: TextStyle(color: Colors.white))
+          ),
           ElevatedButton(
-              child: Text('During Operation'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DuringOperationPage()),
-                );
-              }),
+              child: Container(
+                  width:100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image:AssetImage("assets/images/Module2.png"),
+                    ),
+                  )
+              ),onPressed:(){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DuringOperationPage()),
+            );
+          }),
+          Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Text("During Operation", style: TextStyle(color: Colors.white))
+          ),
           ElevatedButton(
-              child: Text('Post Operation'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PostOperationPage()),
-                );
-              }),
+              child: Container(
+                  width:100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image:AssetImage("assets/images/Module3.png"),
+                    ),
+                  )
+              ),
+              onPressed:(){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const PostOperationPage()),
+            );
+          }),
+          Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+            child: Text("Post Operation", style: TextStyle(color: Colors.white))
+          ),
 
           // The below widget will render a VocabCard for the first row of the
           // result from the database query (see the getData function above).
