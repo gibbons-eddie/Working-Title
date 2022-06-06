@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:senior_project/pages/advanced_pages/post_advanced.dart';
+
 class PostOperationPage extends StatelessWidget {
-  const PostOperationPage({Key? key}) : super(key: key);
+  final String module = 'Post-Operation';
+  
+  PostOperationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Post Operation Page'),
+        title: Text(module),
         backgroundColor: Colors.green,
       ),
       body: Center(
@@ -25,7 +29,11 @@ class PostOperationPage extends StatelessWidget {
             ),
             ElevatedButton(
             onPressed: () {
-              // Navigator.pop(context); // to go to previous widget in tree (in this case, modules page)
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PostAdvancedPage()),
+                );
               }, child: Text("Advanced"),
             ),
           ],

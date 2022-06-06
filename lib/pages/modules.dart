@@ -63,7 +63,7 @@ class ModulesPageChild extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const PreOperationPage()),
+                      builder: (context) => PreOperationPage()),
                 );
               }),
           ElevatedButton(
@@ -72,7 +72,7 @@ class ModulesPageChild extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const DuringOperationPage()),
+                      builder: (context) => DuringOperationPage()),
                 );
               }),
           ElevatedButton(
@@ -81,7 +81,7 @@ class ModulesPageChild extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const PostOperationPage()),
+                      builder: (context) => PostOperationPage()),
                 );
               }),
 

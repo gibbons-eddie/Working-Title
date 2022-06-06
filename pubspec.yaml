@@ -40,6 +40,7 @@ dependencies:
   sqflite: ^2.0.2
   path: ^1.8.0
   percent_indicator: ^4.0.0
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,12 @@ flutter:
     - assets/images/
     - assets/audio/
     - assets/db/senior_project_app.db
+    - assets/
+    - assets/recordings/module1/
+    - assets/recordings/module2/
+    - assets/recordings/module3/
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

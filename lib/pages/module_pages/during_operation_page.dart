@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:senior_project/pages/advanced_pages/during_advanced.dart';
+
 class DuringOperationPage extends StatelessWidget {
-  const DuringOperationPage({Key? key}) : super(key: key);
+  final String module = 'During Operation';
+  
+  DuringOperationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,11 @@ class DuringOperationPage extends StatelessWidget {
             ),
             ElevatedButton(
             onPressed: () {
-              // Navigator.pop(context); // to go to previous widget in tree (in this case, modules page)
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DuringAdvancedPage()),
+                );
               }, child: Text("Advanced"),
             ),
           ],
