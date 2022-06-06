@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/pages/module_pages/beginner_pages/pre_operation_page_beginner.dart';
 
+import 'package:senior_project/pages/advanced_pages/pre_advanced.dart';
+
 class PreOperationPage extends StatelessWidget {
-  const PreOperationPage({Key? key}) : super(key: key);
+  final String module = 'Pre-Operation';
+  
+  PreOperationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pre Operation Page'),
+        title: const Text('Pre-Operation Page'),
         backgroundColor: Colors.green,
       ),
       body: Center(
